@@ -36,9 +36,12 @@ class BuildAbsoluteURIMixin(object):
     protocol = 'http'
 
     def get_domain(self):
-        from django.contrib.sites.models import Site
-        
-        return Site.objects.get_current().domain
+        try:
+            return self.domain
+        except AttributeError:
+            from django.contrib.sites.models import Site
+
+            return Site.objects.get_current().domain
 
     def get_protocol(self):
         return self.protocol
