@@ -1,4 +1,5 @@
 import markdown
+from six import string_types
 
 from django.template import loader
 from django.core.mail import EmailMessage, EmailMultiAlternatives
@@ -45,7 +46,7 @@ class BasicEmail(BaseEmail):
     def get_to(self):
         if self.to is None:
             raise ImproperlyConfigured('No `to` provided')
-        if isinstance(self.to, basestring):
+        if isinstance(self.to, string_types):
             return [self.to]
         return self.to
 
