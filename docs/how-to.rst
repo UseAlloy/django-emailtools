@@ -179,7 +179,7 @@ which provides the url reversing that returns absolute urls.
     # mixins.py
     from django.contrib.auth.tokens import default_token_generator
     from django.contrib.sites.models import Site
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
 
     class BuildAbsoluteURIMixin(object):
         protocol = 'http'
@@ -213,18 +213,18 @@ token generation for our emails.
     class UserTokenEmailMixin(BuildAbsoluteURIMixin):
         UID_KWARG = 'uidb36'
         TOKEN_KWARG = 'token'
-    
+
         token_generator = default_token_generator
-    
+
         def get_user(self):
             return self.args[0]
-    
+
         def generate_token(self, user):
             return self.token_generator.make_token(user)
-    
+
         def get_uid(self, user):
             return int_to_base36(user.pk)
-    
+
         def reverse_token_url(self, view_name, args=None, kwargs={}):
             kwargs.setdefault(self.UID_KWARG, self.get_uid(self.get_user()))
             kwargs.setdefault(self.TOKEN_KWARG, self.generate_token(self.get_user()))
@@ -249,10 +249,10 @@ Now, lets rewrite ``PasswordResetEmail`` to make use of these new mixins.
         from_email = 'admin@example.com'
         template_name = 'registration/password_reset_email.html'
         subject = "Password Reset"
-    
+
         def get_to(self):
             return [self.get_user().email]
-    
+
         def get_context_data(self, **kwargs):
             kwargs = super(PasswordResetEmail, self).get_context_data()
             user = self.get_user()

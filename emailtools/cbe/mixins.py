@@ -1,6 +1,6 @@
 from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ImproperlyConfigured
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.template import loader
 from django.utils.http import int_to_base36
 
@@ -37,7 +37,7 @@ class BuildAbsoluteURIMixin(object):
 
     def get_domain(self):
         from django.contrib.sites.models import Site
-        
+
         return Site.objects.get_current().domain
 
     def get_protocol(self):
