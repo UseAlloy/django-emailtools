@@ -14,16 +14,16 @@ def read(fname):
 
 
 install_requires = [
-    'Django>=1.3',
+    'Django>=2.0',
     'markdown',
 ]
 
 if sys.version.startswith("2.6"):
     install_requires.append("importlib")
 
-STAGE = 'alpha'
+STAGE = 'final'
 
-version = (1, 0, 0, STAGE)
+version = (0, 3, 0, STAGE)
 
 
 def get_version():
@@ -35,6 +35,7 @@ def get_version():
         process = subprocess.Popen('git rev-parse HEAD'.split(), stdout=subprocess.PIPE)
         stdout, stderr = process.communicate()
         return number + '-' + stdout.strip()[:8]
+
 
 setup(
     name='django-emailtools',
