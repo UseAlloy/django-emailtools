@@ -45,7 +45,7 @@ class BasicEmail(BaseEmail):
     def get_to(self):
         if self.to is None:
             raise ImproperlyConfigured('No `to` provided')
-        if isinstance(self.to, basestring):
+        if isinstance(self.to, str):
             return [self.to]
         return self.to
 
