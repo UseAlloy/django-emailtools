@@ -23,7 +23,7 @@ if sys.version.startswith("2.6"):
 
 STAGE = 'final'
 
-version = (0, 3, 0, STAGE)
+version = (0, 3, 1, STAGE)
 
 
 def get_version():
